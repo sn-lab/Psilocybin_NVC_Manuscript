@@ -12,7 +12,13 @@ Lastly, to analyze and plot capillary width from 2P frame scan imaging volumes, 
 
 ## Widefield Imaging Analysis
 
-To be added.
+This folder contains data tables of processed (not raw) multimodal data obtained from widefield multimodal imaging. all vessel data (containing flow velocity and width for all recorded vessels) are stored in long data format in the "vessel_long_vector.mat file, and all neuron calcium imaging data in the "neuron_long_vector.mat file. This folder also contains a script (AnalyzeWidefieldVideos.m) to process intermediate (not raw) imaging data to generate these data tables and plot the data. This script loads all intermediate imaging data, generates binary masks around parenchyma regions (with user-customizable binarization settings) and already-drawn vessel boxes around arteriole and venule segments, calculates average multimodal imaging values (e.g. ICT, HbT) within each ROI type, and organizes all of these variables for all datasets in long data format,. This data is saved as "all_long_vectors.mat". This data is then further processed to calculate the mean values during rise/recovery/response times as appropriate for the data type (and as described in the manuscript), and the data is analyzed and plotted. 
+
+To create the manually-drawn vessel boxes around arteriole and venule segments, the "[getVesselWidths](https://github.com/sn-lab/Vessel-Diameter-Tools/blob/main/getVesselWidths.mlapp "getVesselWidths.mlapp")" Matlab app (located in the [sn-lab/Vessel-Diameter-Tools](https://github.com/sn-lab/Vessel-Diameter-Tools) repository) is used on the oxygenation map for each dataset individually so that the user can manually draw 4-point boxes around arteriold and venule segments. This "AnalyzeWidefieldVideos" script then calls the "vesselWidthTimeseries" function to fit a Gaussian function to the average cross-section profile of each vessel segment.
+
+To generate the processed imaging data from raw multimodal imaging data, the data is first processed through the "MultiStimVideos.m" script. This script loads the raw multimodal imaging data (.tif and .mat files) and processes the data in multiple ways: filtering; temporal alignment to the stimuli; calculation of Speckl/ICT/Hemiglobin/etc. information from raw imaging channels; saving the trial-averaged stimulus-response video of each datatype; saving an oxygenation reference map to for manually drawing vessel boxes around arteriole/venule segments.
+
+
 
 ## BOLD Simulations
 
